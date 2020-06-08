@@ -1,5 +1,5 @@
 //
-//  ToDoTableTableViewController.swift
+//  AddToDoViewController.swift
 //  ToDoList
 //
 //  Created by Haley Sanchez on 6/8/20.
@@ -8,56 +8,49 @@
 
 import UIKit
 
-class ToDoTableTableViewController: UITableViewController {
-    
-    var toDos : [ToDo] = []
+class AddToDoViewController: UIViewController {
 
+    var previousVC = ToDoTableViewController1()
+    
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var importantSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toDos = createToDos()
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    @IBAction func addTapped(_ sender: UIButton) {
+        let toDo = ToDo()
+
+        if let titleText = titleTextField.text {
+          toDo.name = titleText
+          toDo.important = importantSwitch.isOn
+        }
+        previousVC.toDos.append(toDo)
+        previousVC.tableView.reloadData()
+        navigationController?.popViewController(animated: true)
+    }
+    
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return toDos.count
-    }
 
-    func createToDos() -> [ToDo] {
-
-      let swift = ToDo()
-      swift.name = "Learn Swift"
-      swift.important = true
-
-      let dog = ToDo()
-      dog.name = "Walk the Dog"
-      // important is set to false by default
-
-      return [swift, dog]
-    }
-    
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        let toDo = toDos[indexPath.row]
-        
-        if toDo.important {
-          cell.textLabel?.text = "❗️" + toDo.name
-        } else {
-          cell.textLabel?.text = toDo.name
-        }
+        // Configure the cell...
 
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
