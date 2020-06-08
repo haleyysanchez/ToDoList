@@ -9,15 +9,13 @@
 import UIKit
 
 class ToDoTableTableViewController: UITableViewController {
+    
+    var toDos : [ToDo] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        toDos = createToDos()
     }
 
     // MARK: - Table view data source
@@ -29,18 +27,37 @@ class ToDoTableTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return toDos.count
     }
 
-    /*
+    func createToDos() -> [ToDo] {
+
+      let swift = ToDo()
+      swift.name = "Learn Swift"
+      swift.important = true
+
+      let dog = ToDo()
+      dog.name = "Walk the Dog"
+      // important is set to false by default
+
+      return [swift, dog]
+    }
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
+        let toDo = toDos[indexPath.row]
+        
+        if toDo.important {
+          cell.textLabel?.text = "❗️" + toDo.name
+        } else {
+          cell.textLabel?.text = toDo.name
+        }
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
